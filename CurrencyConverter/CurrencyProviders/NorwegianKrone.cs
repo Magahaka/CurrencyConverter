@@ -1,10 +1,9 @@
 ﻿using CurrencyConverter.CurrencyProviders.Base;
 
-namespace CurrencyConverter.CurrencyProviders
+namespace CurrencyConverter.CurrencyProviders;
+
+public class NorwegianKrone : Currency
 {
-    public class NorwegianKrone : Currency
-    {
-        public override decimal ConversionRate { get; init; } = 00.7840M;
-        public override string IsoCurrencyCode { get; init; } = "NOK";
-    }
+    public override decimal ConversionRate { get; init; } = 00.7840M;
+    public override string IsoCurrencyCode { get; init; } = "NOK";
 }

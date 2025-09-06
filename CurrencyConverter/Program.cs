@@ -2,39 +2,38 @@
 using CurrencyConverter.Services;
 using CurrencyConverter.Utils;
 
-namespace CurrencyConverter
+namespace CurrencyConverter;
+
+public class Program
 {
-    public class Program
+    public static void Main(string[] args)
     {
-        public static void Main(string[] args)
+        Console.WriteLine(Constants.ExchangeCommandUsageResponse());
+
+        var currencyBroker = new CurrencyBroker();
+        var converterService = new ConverterService(currencyBroker);
+
+        while (true)
         {
-            Console.WriteLine(Constants.ExchangeCommandUsageResponse());
+            var input = Console.ReadLine();
 
-            var currencyBroker = new CurrencyBroker();
-            var converterService = new ConverterService(currencyBroker);
-
-            while (true)
-            {
-                var input = Console.ReadLine();
-
-                HandleCurrencyConversion(converterService, input);
-            }
+            HandleCurrencyConversion(converterService, input);
         }
+    }
 
-        private static void HandleCurrencyConversion(
-            ConverterService converterService, 
-            string input)
+    private static void HandleCurrencyConversion(
+        ConverterService converterService,
+        string input)
+    {
+        try
         {
-            try
-            {
-                var result = converterService.Convert(input);
+            var result = converterService.Convert(input);
 
-                Console.WriteLine(result);
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine(e.Message);
-            }
+            Console.WriteLine(result);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e.Message);
         }
     }
 }

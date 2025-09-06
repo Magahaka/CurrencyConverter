@@ -1,10 +1,9 @@
 ﻿using CurrencyConverter.CurrencyProviders.Base;
 
-namespace CurrencyConverter.CurrencyProviders
+namespace CurrencyConverter.CurrencyProviders;
+
+public class DanishKrone : Currency
 {
-    public class DanishKrone : Currency
-    {
-        public override decimal ConversionRate { get; init; } = 1M;
-        public override string IsoCurrencyCode { get; init; } = "DKK";
-    }
+    public override decimal ConversionRate { get; init; } = 1M;
+    public override string IsoCurrencyCode { get; init; } = "DKK";
 }
