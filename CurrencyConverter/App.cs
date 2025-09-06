@@ -1,11 +1,12 @@
-﻿using CurrencyConverter.Interfaces.Services;
+﻿using CurrencyConverter.Interfaces.Orchestrators;
+using CurrencyConverter.Models;
 using CurrencyConverter.Utils;
 
 namespace CurrencyConverter;
 
-public class App(IConverterService converterService)
+public class App(IInputOrchestrator inputOrchestrator)
 {
-    private readonly IConverterService _converterService = converterService;
+    private readonly IInputOrchestrator _inputOrchestrator = inputOrchestrator;
 
     public void Run()
     {
@@ -13,19 +14,24 @@ public class App(IConverterService converterService)
 
         while (true)
         {
-            var input = Console.ReadLine();
+            var userInput = Console.ReadLine();
 
-            HandleCurrencyConversion(input);
+            var inputModel = new InputContext
+            {
+                UserInput = userInput
+            };
+
+            HandleCurrencyConversion(inputModel);
         }
     }
 
-    private void HandleCurrencyConversion(string input)
+    private void HandleCurrencyConversion(InputContext inputModel)
     {
         try
         {
-            var result = _converterService.Convert(input);
+            var context = _inputOrchestrator.Handle(inputModel);
 
-            Console.WriteLine(result);
+            Console.WriteLine(context.ConvertedAmount);
         }
         catch (Exception exception)
         {

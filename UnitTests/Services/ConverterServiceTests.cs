@@ -1,4 +1,5 @@
 ﻿using CurrencyConverter.CurrencyProviders;
+using CurrencyConverter.Interfaces.Broker;
 using CurrencyConverter.Services;
 
 namespace UnitTests.Services
