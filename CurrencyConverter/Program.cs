@@ -1,6 +1,6 @@
-﻿using CurrencyConverter.CurrencyProviders;
+﻿using CurrencyConverter.Interfaces.Services;
 using CurrencyConverter.Services;
-using CurrencyConverter.Utils;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace CurrencyConverter;
 
@@ -8,32 +8,12 @@ public class Program
 {
     public static void Main(string[] args)
     {
-        Console.WriteLine(Constants.ExchangeCommandUsageResponse());
+        var serviceProvider = new ServiceCollection()
+            .AddSingleton<IConverterService, ConverterService>()
+            .AddSingleton<App>()
+            .BuildServiceProvider();
 
-        var currencyBroker = new CurrencyBroker();
-        var converterService = new ConverterService(currencyBroker);
-
-        while (true)
-        {
-            var input = Console.ReadLine();
-
-            HandleCurrencyConversion(converterService, input);
-        }
-    }
-
-    private static void HandleCurrencyConversion(
-        ConverterService converterService,
-        string input)
-    {
-        try
-        {
-            var result = converterService.Convert(input);
-
-            Console.WriteLine(result);
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine(e.Message);
-        }
+        var app = serviceProvider.GetRequiredService<App>();
+        app.Run();
     }
 }

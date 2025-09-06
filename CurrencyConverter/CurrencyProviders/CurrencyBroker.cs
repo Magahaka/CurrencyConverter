@@ -1,13 +1,10 @@
 ﻿using CurrencyConverter.CurrencyProviders.Base;
+using CurrencyConverter.Interfaces.Broker;
 using CurrencyConverter.Utils;
 using System.Reflection;
 
 namespace CurrencyConverter.CurrencyProviders;
 
-public interface ICurrencyBroker
-{
-    Currency GetCurrencyByIsoCode(string isoCode);
-}
 
 public class CurrencyBroker : ICurrencyBroker
 {

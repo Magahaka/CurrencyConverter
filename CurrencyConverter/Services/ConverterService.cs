@@ -1,16 +1,12 @@
-﻿using CurrencyConverter.CurrencyProviders;
+﻿using CurrencyConverter.Interfaces.Broker;
+using CurrencyConverter.Interfaces.Services;
 using CurrencyConverter.Validators;
 
 namespace CurrencyConverter.Services;
 
-public class ConverterService
+public class ConverterService(ICurrencyBroker currencyBroker) : IConverterService
 {
-    private readonly ICurrencyBroker _currencyBroker;
-
-    public ConverterService(ICurrencyBroker currencyBroker)
-    {
-        _currencyBroker = currencyBroker;
-    }
+    private readonly ICurrencyBroker _currencyBroker = currencyBroker;
 
     public decimal Convert(string input)
     {
