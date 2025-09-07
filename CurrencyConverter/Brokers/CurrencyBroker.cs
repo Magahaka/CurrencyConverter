@@ -3,12 +3,12 @@ using CurrencyConverter.Interfaces.Broker;
 using CurrencyConverter.Utils;
 using System.Reflection;
 
-namespace CurrencyConverter.CurrencyProviders;
+namespace CurrencyConverter.Brokers;
 
 
 public class CurrencyBroker : ICurrencyBroker
 {
-    private readonly IDictionary<string, Currency> _currencies;
+    private readonly Dictionary<string, Currency> _currencies;
 
     public CurrencyBroker()
     {

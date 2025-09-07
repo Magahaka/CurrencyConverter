@@ -6,8 +6,6 @@ namespace CurrencyConverter;
 
 public class App(IInputOrchestrator inputOrchestrator)
 {
-    private readonly IInputOrchestrator _inputOrchestrator = inputOrchestrator;
-
     public void Run()
     {
         Console.WriteLine(Constants.ExchangeCommandUsageResponse());
@@ -16,22 +14,22 @@ public class App(IInputOrchestrator inputOrchestrator)
         {
             var userInput = Console.ReadLine();
 
-            var inputModel = new InputContext
+            HandleUserInput(userInput);
+        }
+    }
+
+    private void HandleUserInput(string userInput)
+    {
+        try
+        {
+            var context = new InputContext
             {
                 UserInput = userInput
             };
 
-            HandleCurrencyConversion(inputModel);
-        }
-    }
+            var result = inputOrchestrator.Handle(context);
 
-    private void HandleCurrencyConversion(InputContext inputModel)
-    {
-        try
-        {
-            var context = _inputOrchestrator.Handle(inputModel);
-
-            Console.WriteLine(context.ConvertedAmount);
+            Console.WriteLine(result.ConvertedAmount);
         }
         catch (Exception exception)
         {

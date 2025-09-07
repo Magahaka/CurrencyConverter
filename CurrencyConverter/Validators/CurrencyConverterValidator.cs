@@ -1,11 +1,14 @@
-﻿using CurrencyConverter.Utils;
+﻿using CurrencyConverter.Interfaces;
+using CurrencyConverter.Utils;
 
 namespace CurrencyConverter.Validators;
 
-public static class CurrencyConverterValidator
+public class CurrencyConverterValidator : ICurrencyConverterValidator
 {
-    public static void ValidateInputArgumentCount(List<string> arguments)
+    public void ValidateInputArgumentCount(string userInput)
     {
+        var arguments = userInput.Split().ToList();
+
         if (arguments.Count != 3)
         {
             throw new ArgumentException(
@@ -14,7 +17,7 @@ public static class CurrencyConverterValidator
         }
     }
 
-    public static void ValidateInputCommand(string command)
+    public void ValidateInputCommand(string command)
     {
         if (!command.Equals("exchange", StringComparison.OrdinalIgnoreCase))
         {
@@ -24,7 +27,7 @@ public static class CurrencyConverterValidator
         }
     }
 
-    public static void ValidateCurrencyPairFormat(string currencyPair)
+    public void ValidateCurrencyPairFormat(string currencyPair)
     {
         if (!currencyPair.Contains('/'))
         {
@@ -34,7 +37,7 @@ public static class CurrencyConverterValidator
         }
 
         var providedCurrencies = currencyPair
-            .Split(new[] { '/' }, StringSplitOptions.RemoveEmptyEntries);
+            .Split(['/'], StringSplitOptions.RemoveEmptyEntries);
 
         if (providedCurrencies.Length != 2)
         {
@@ -44,7 +47,7 @@ public static class CurrencyConverterValidator
         }
     }
 
-    public static void ValidateAmount(string amount)
+    public void ValidateAmount(string amount)
     {
         if (!decimal.TryParse(amount, out _))
         {

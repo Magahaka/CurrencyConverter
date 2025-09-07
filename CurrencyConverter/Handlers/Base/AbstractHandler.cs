@@ -3,11 +3,11 @@ using CurrencyConverter.Models;
 
 namespace CurrencyConverter.Handlers.Base;
 
-public abstract class AbstractHandler : IHandler
+public abstract class AbstractHandler : IHandler<InputContext>
 {
-    private IHandler _nextHandler;
+    private IHandler<InputContext> _nextHandler;
 
-    public IHandler SetNext(IHandler handler)
+    public IHandler<InputContext> SetNext(IHandler<InputContext> handler)
     {
         _nextHandler = handler;
 

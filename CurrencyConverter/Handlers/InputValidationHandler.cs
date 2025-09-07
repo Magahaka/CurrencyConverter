@@ -1,28 +1,27 @@
 ﻿using CurrencyConverter.Handlers.Base;
-using CurrencyConverter.Interfaces.Handlers;
+using CurrencyConverter.Interfaces;
 using CurrencyConverter.Models;
-using CurrencyConverter.Validators;
 
 namespace CurrencyConverter.Handlers;
 
-public class InputValidationHandler : AbstractHandler, IInputValidationHandler
+public class InputValidationHandler(ICurrencyConverterValidator currencyConverterValidator) : AbstractHandler
 {
     public override InputContext Handle(InputContext input)
     {
+        currencyConverterValidator.ValidateInputArgumentCount(input.UserInput);
+
         var arguments = input.UserInput
             .Split()
             .ToList();
 
-        CurrencyConverterValidator.ValidateInputArgumentCount(arguments);
-
         var command = arguments[0];
-        CurrencyConverterValidator.ValidateInputCommand(command);
+        currencyConverterValidator.ValidateInputCommand(command);
 
         var currencyPair = arguments[1];
-        CurrencyConverterValidator.ValidateCurrencyPairFormat(currencyPair);
+        currencyConverterValidator.ValidateCurrencyPairFormat(currencyPair);
 
         var amount = arguments[2];
-        CurrencyConverterValidator.ValidateAmount(amount);
+        currencyConverterValidator.ValidateAmount(amount);
 
         return base.Handle(input);
     }

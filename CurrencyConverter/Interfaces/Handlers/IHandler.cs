@@ -1,9 +1,7 @@
-﻿using CurrencyConverter.Models;
+﻿namespace CurrencyConverter.Interfaces.Handlers;
 
-namespace CurrencyConverter.Interfaces.Handlers;
-
-public interface IHandler
+public interface IHandler<T>
 {
-    IHandler SetNext(IHandler handler);
-    InputContext Handle(InputContext input);
+    IHandler<T> SetNext(IHandler<T> handler);
+    T Handle(T input);
 }

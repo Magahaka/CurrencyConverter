@@ -1,11 +1,10 @@
 ﻿using CurrencyConverter.Handlers.Base;
 using CurrencyConverter.Interfaces.Broker;
-using CurrencyConverter.Interfaces.Handlers;
 using CurrencyConverter.Models;
 
 namespace CurrencyConverter.Handlers;
 
-public class InputParserHandler(ICurrencyBroker currencyBroker) : AbstractHandler, IInputParserHandler
+public class InputParserHandler(ICurrencyBroker currencyBroker) : AbstractHandler
 {
     public override InputContext Handle(InputContext context)
     {
